@@ -4,35 +4,76 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up Page</title>
-    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <a href="#" id="logoutLink" onclick="logout()" style="display: none"
+  <body class="bg-gray-100 text-gray-800">
+    <header class="bg-gray-800 text-white p-4">
+      <nav class="flex space-x-4">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="login.html" id="loginLink" class="hover:underline">Login</a>
+        <a href="signup.html" id="signupLink" class="hover:underline"
+          >Sign Up</a
+        >
+        <a
+          href="#"
+          id="logoutLink"
+          onclick="logout()"
+          class="hover:underline text-red-500 hidden"
           >Logout</a
         >
       </nav>
     </header>
-    <main>
-      <h1>Sign Up</h1>
-      <form id="signupForm" onsubmit="signup(event)">
-        <label for="email">Email:</label>
-        <input type="email" id="email" required />
-
-        <label for="newUsername">Username:</label>
-        <input type="text" id="newUsername" required />
-
-        <label for="newPassword">Password:</label>
-        <input type="password" id="newPassword" required />
-
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" required />
-
-        <button type="submit">Sign Up</button>
+    <main class="p-6 max-w-md mx-auto">
+      <h1 class="text-2xl font-bold mb-4">Sign Up</h1>
+      <form id="signupForm" onsubmit="signup(event)" class="space-y-4">
+        <div>
+          <label for="email" class="block text-lg font-medium">Email:</label>
+          <input
+            type="email"
+            id="email"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label for="newUsername" class="block text-lg font-medium"
+            >Username:</label
+          >
+          <input
+            type="text"
+            id="newUsername"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label for="newPassword" class="block text-lg font-medium"
+            >Password:</label
+          >
+          <input
+            type="password"
+            id="newPassword"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label for="confirmPassword" class="block text-lg font-medium"
+            >Confirm Password:</label
+          >
+          <input
+            type="password"
+            id="confirmPassword"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <button type="submit" class="w-full p-2 bg-gray-800 text-white rounded">
+          Sign Up
+        </button>
       </form>
     </main>
     <script src="script.js"></script>

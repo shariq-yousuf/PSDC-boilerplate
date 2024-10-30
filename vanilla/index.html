@@ -4,22 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
-    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <a href="#" id="logoutLink" onclick="logout()" style="display: none"
+  <body class="bg-gray-100 text-gray-800">
+    <header class="bg-gray-800 text-white p-4">
+      <nav class="flex space-x-4">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="login.html" id="loginLink" class="hover:underline">Login</a>
+        <a href="signup.html" id="signupLink" class="hover:underline"
+          >Sign Up</a
+        >
+        <a
+          href="#"
+          id="logoutLink"
+          onclick="logout()"
+          class="hover:underline text-red-500 hidden"
           >Logout</a
         >
       </nav>
     </header>
-    <main>
-      <h1>Welcome to the Home Page</h1>
-      <p>This is the main landing page.</p>
+    <main class="p-6">
+      <h1 class="text-2xl font-bold mb-4">Welcome to the Home Page</h1>
+      <p class="text-lg">This is the main landing page.</p>
     </main>
+
+    <script src="script.js"></script>
   </body>
 </html>

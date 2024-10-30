@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="signup.html" id="signupLink">Sign Up</a>
+        <a href="#" id="logoutLink" onclick="logout()" style="display: none"
+          >Logout</a
+        >
+      </nav>
+    </header>
+    <main>
+      <h1>Sign Up</h1>
+      <form id="signupForm" onsubmit="signup(event)">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required />
+
+        <label for="newUsername">Username:</label>
+        <input type="text" id="newUsername" required />
+
+        <label for="newPassword">Password:</label>
+        <input type="password" id="newPassword" required />
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" required />
+
+        <button type="submit">Sign Up</button>
+      </form>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

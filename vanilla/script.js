@@ -18,7 +18,7 @@ function login(event) {
   const password = passwordInput.value
 
   if (username === "user" && password === "password") {
-    alert("Login successful!")
+    // alert("Login successful!")
     localStorage.setItem("loggedIn", "true")
     window.location.href = "dashboard.html"
   } else {

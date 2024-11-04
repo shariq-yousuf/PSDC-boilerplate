@@ -7,6 +7,10 @@ const confirmPasswordInput = document.getElementById("confirmPassword")
 const loginLink = document.getElementById("loginLink")
 const signupLink = document.getElementById("signupLink")
 const logoutLink = document.getElementById("logoutLink")
+const resetNewPasswordInput = document.getElementById("new-password")
+const resetConfirmPasswordInput = document.getElementById(
+  "confirm-new-password"
+)
 
 function isLoggedIn() {
   return localStorage.getItem("loggedIn") === "true"
@@ -46,6 +50,27 @@ function logout() {
   localStorage.removeItem("loggedIn")
   alert("Logged out successfully!")
   window.location.href = "index.html"
+}
+
+function resetPassword(e) {
+  e.preventDefault()
+  alert("Password reset link sent to your email!")
+
+  window.location.href = "create-new-password.html"
+}
+
+function createNewPassword(e) {
+  e.preventDefault()
+  const newPassword = resetNewPasswordInput.value
+  const confirmPassword = resetConfirxmPasswordInput.value
+
+  if (newPassword !== confirmPassword) {
+    alert("Passwords do not match!")
+    return
+  } else {
+    alert("Password created successfully!")
+    window.location.href = "login.html"
+  }
 }
 
 function adjustNavLinks() {

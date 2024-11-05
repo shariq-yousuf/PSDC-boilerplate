@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <header class="bg-gray-800 text-white p-4">
+      <%- include("./partials/navbar.ejs", { isLoggedIn }) %>
+    </header>
+    <main class="p-6 max-w-md mx-auto">
+      <h1 class="text-2xl font-bold mb-4">Sign Up</h1>
+      <form id="signupForm" onsubmit="signup(event)" class="space-y-4">
+        <div>
+          <label for="email" class="block text-lg font-medium">Email:</label>
+          <input
+            type="email"
+            id="email"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label for="newUsername" class="block text-lg font-medium"
+            >Username:</label
+          >
+          <input
+            type="text"
+            id="newUsername"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label for="newPassword" class="block text-lg font-medium"
+            >Password:</label
+          >
+          <input
+            type="password"
+            id="newPassword"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label for="confirmPassword" class="block text-lg font-medium"
+            >Confirm Password:</label
+          >
+          <input
+            type="password"
+            id="confirmPassword"
+            required
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <p>
+          Already have an account?
+          <a href="./login.html" class="underline hover:no-underline"
+            >Sign in</a
+          >
+        </p>
+        <button type="submit" class="w-full p-2 bg-gray-800 text-white rounded">
+          Sign Up
+        </button>
+      </form>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 <nav class="flex space-x-4">
   <a href="/" class="hover:underline">Home</a>
   <% if (!isLoggedIn) { %>
-  <a href="login.ejs" id="loginLink" class="hover:underline">Login</a>
+  <a href="/login" id="loginLink" class="hover:underline">Login</a>
   <a href="/signup" id="signupLink" class="hover:underline">Sign Up</a>
   <% } else { %>
   <a

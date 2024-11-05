@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <header class="bg-gray-800 text-white p-4">
+      <%- include("./partials/navbar.ejs", { isLoggedIn }) %>
+    </header>
+    <main class="p-6 max-w-md mx-auto">
+      <h1 class="text-2xl font-bold mb-4">Login</h1>
+      <form id="loginForm" action="/login" method="post" class="space-y-4">
+        <div>
+          <label for="username" class="block text-lg font-medium"
+            >Username:</label
+          >
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-lg font-medium"
+            >Password:</label
+          >
+          <input type="password" id="password" name="password class="w-full p-2
+          border rounded" />
+        </div>
+        <p>
+          Don't have an account?
+          <a href="/signup" class="underline hover:no-underline"
+            >Create one</a
+          >
+        </p>
+        <p>
+          <a href="./forgot-password.html" class="underline hover:no-underline"
+            >Forgot password?</a
+          >
+        </p>
+        <button type="submit" class="w-full p-2 bg-gray-800 text-white rounded">
+          Login
+        </button>
+      </form>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

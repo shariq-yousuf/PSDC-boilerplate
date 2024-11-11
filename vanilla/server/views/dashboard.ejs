@@ -3,26 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
+    <title>Dashboard</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
   </head>
   <body class="bg-gray-100 text-gray-800">
-    <header class="bg-gray-800 text-white p-4">
+    <header class="bg-gray-800 text-white px-8 py-4">
       <%- include("./partials/navbar.ejs", { isLoggedIn }) %>
     </header>
     <main class="p-6">
-      <h1 class="text-2xl font-bold mb-4">Welcome to the Home Page</h1>
-      <p class="text-lg">This is the main landing page.</p>
-      <a
-        href="/signup"
-        type="button"
-        class="mt-4 px-10 py-2 bg-gray-800 text-white rounded hover:bg-gray-900"
-      >
-        Get Registered
-      </a>
+      <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+      <p>Welcome to your dashboard!</p>
     </main>
   </body>
 </html>

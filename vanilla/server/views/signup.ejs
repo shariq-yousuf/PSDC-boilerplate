@@ -15,7 +15,19 @@
     </header>
     <main class="p-6 max-w-md mx-auto">
       <h1 class="text-2xl font-bold mb-4">Sign Up</h1>
-      <form action="/signup" method="post" id="signupForm" class="space-y-4">
+      <p class="error-message opacity-0 transition-opacity duration-300"></p>
+      <form onsubmit="signup(event)" id="signupForm" class="space-y-4">
+        <div>
+          <label for="username" class="block text-lg font-medium"
+            >Username:</label
+          >
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="w-full p-2 border rounded"
+          />
+        </div>
         <div>
           <label for="email" class="block text-lg font-medium">Email:</label>
           <input
@@ -26,35 +38,24 @@
           />
         </div>
         <div>
-          <label for="newUsername" class="block text-lg font-medium"
-            >Username:</label
-          >
-          <input
-            type="text"
-            id="newUsername"
-            name="username"
-            class="w-full p-2 border rounded"
-          />
-        </div>
-        <div>
-          <label for="newPassword" class="block text-lg font-medium"
+          <label for="password" class="block text-lg font-medium"
             >Password:</label
           >
           <input
             type="password"
             name="password"
-            id="newPassword"
+            id="password"
             class="w-full p-2 border rounded"
           />
         </div>
         <div>
-          <label for="confirmPassword" class="block text-lg font-medium"
+          <label for="confirm-password" class="block text-lg font-medium"
             >Confirm Password:</label
           >
           <input
             type="password"
-            name="confirmPassword"
-            id="confirmPassword"
+            name="confirm-password"
+            id="confirm-password"
             class="w-full p-2 border rounded"
           />
         </div>
@@ -67,6 +68,59 @@
         </button>
       </form>
     </main>
-    <script src="script.js"></script>
   </body>
+  <script>
+    async function signup(event) {
+      event.preventDefault()
+
+      const username = document.getElementById("username").value
+      const email = document.getElementById("email").value
+      const password = document.getElementById("password").value
+      const confirmPassword = document.getElementById("confirm-password").value
+
+      if (!username || !email || !password || !confirmPassword) {
+        displayMessage("Please fill in all fields.")
+        return
+      }
+
+      if (password !== confirmPassword) {
+        displayMessage("Passwords do not match!")
+        return
+      }
+
+      try {
+        const response = await fetch("/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, email, password }),
+        })
+
+        if (response.ok) {
+          displayMessage(
+            "Sign up successful! You will be redirected to the login page.",
+            true
+          )
+
+          setTimeout(() => {
+            location.href = response.url
+          }, 1000)
+        } else {
+          const data = await response.json()
+          displayMessage(data.message)
+        }
+      } catch (error) {
+        displayMessage("An error occurred. Please try again later.")
+        console.error(error)
+      }
+    }
+
+    function displayMessage(msg, status = false) {
+      const errorMessageEl = document.querySelector(".error-message")
+      errorMessageEl.classList.remove("opacity-0")
+      errorMessageEl.style.color = status ? "green" : "red"
+      errorMessageEl.textContent = msg
+    }
+  </script>
 </html>

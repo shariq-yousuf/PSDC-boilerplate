@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <header class="bg-gray-800 text-white p-4">
+      <%- include("./partials/navbar.ejs", { isLoggedIn }) %>
+    </header>
+
+    <main class="p-6 max-w-md mx-auto">
+      <div>
+        <h1 class="text-2xl font-bold mb-4">Your Profile</h1>
+        <p class="text-lg">Welcome, <%= username %>!</p>
+        <div class="mt-4">
+          <p class="text-lg font-medium">Email:</p>
+          <p id="user-email" class="text-gray-600"><%= email %></p>
+        </div>
+      </div>
+
+      <hr class="border-gray-300 mt-6" />
+
+      <div class="my-6">
+        <h2 class="text-2xl font-bold mb-4">Reset Your Password</h2>
+        <form onsubmit="updatePassword(event)" class="space-y-4">
+          <div>
+            <label for="new-password" class="block text-lg font-medium"
+              >New Password:</label
+            >
+            <input
+              type="password"
+              name="new-password"
+              id="new-password"
+              required
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <div>
+            <label for="confirm-new-password" class="block text-lg font-medium"
+              >Confirm New Password:</label
+            >
+            <input
+              type="password"
+              name="confirm-new-password"
+              id="confirm-new-password"
+              required
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <p
+            id="password-message"
+            style="opacity: 0; transition: opacity 0.5s ease-in-out"
+          ></p>
+          <button
+            type="submit"
+            class="w-full p-2 bg-gray-800 text-white rounded hover:bg-gray-900"
+          >
+            Reset Password
+          </button>
+        </form>
+      </div>
+
+      <div>
+        <fieldset class="border-2 border-red-600 p-4 text-center text-red-600">
+          <legend class="text-lg font-bold px-2">Danger Zone</legend>
+          <button
+            onclick="deleteAccount()"
+            type="submit"
+            class="w-full p-2 bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Delete Your Account
+          </button>
+        </fieldset>
+      </div>
+    </main>
+  </body>
+  <script>
+    const newPasswordInput = document.getElementById("new-password")
+    const confirmNewPasswordInput = document.getElementById(
+      "confirm-new-password"
+    )
+    const msgEl = document.getElementById("password-message")
+    const email = "<%- email %>"
+
+    function updatePassword(e) {
+      e.preventDefault()
+      const newPassword = newPasswordInput.value
+      const confirmNewPassword = confirmNewPasswordInput.value
+
+      if (newPassword === confirmNewPassword) {
+        fetch("/create-new-password", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ newPassword, email }),
+        })
+          .then((res) => {
+            if (res.ok) {
+              msgEl.textContent = "Password updated successfully!"
+              msgEl.style.color = "green"
+              msgEl.style.opacity = 1
+              setTimeout(() => {
+                msgEl.style.opacity = 0
+                msgEl.textContent = ""
+              }, 2000)
+            }
+          })
+          .catch((err) => {
+            msgEl.textContent = "Password update failed. Please try again."
+            msgEl.style.color = "red"
+            msgEl.style.opacity = 1
+            setTimeout(() => {
+              msgEl.style.opacity = 0
+              msgEl.textContent = ""
+            }, 2000)
+          })
+          .finally(() => {
+            newPasswordInput.value = ""
+            confirmNewPasswordInput.value = ""
+          })
+      } else {
+        alert("Passwords do not match. Please try again.")
+      }
+    }
+
+    async function deleteAccount() {
+      if (!confirm("Are you sure you want to delete your account?")) {
+        return
+      }
+
+      const response = await fetch("/delete-account", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
+      console.log(response)
+      if (response.ok) {
+        const data = await response.json()
+        // alert("Account deleted successfully!")
+        window.location.href = data.redirect
+      } else {
+        alert("Failed to delete account. Please try again.")
+      }
+    }
+  </script>
+</html>

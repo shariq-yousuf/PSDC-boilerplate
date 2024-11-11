@@ -15,7 +15,8 @@
     </header>
     <main class="p-6 max-w-md mx-auto">
       <h1 class="text-2xl font-bold mb-4">Login</h1>
-      <form id="loginForm" action="/login" method="post" class="space-y-4">
+      <p class="error-message opacity-0 transition-opacity duration-300"></p>
+      <form id="loginForm" onsubmit="login(event)" class="space-y-4">
         <div>
           <label for="username" class="block text-lg font-medium"
             >Username:</label
@@ -31,17 +32,19 @@
           <label for="password" class="block text-lg font-medium"
             >Password:</label
           >
-          <input type="password" id="password" name="password class="w-full p-2
-          border rounded" />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="w-full p-2 border rounded"
+          />
         </div>
         <p>
           Don't have an account?
-          <a href="/signup" class="underline hover:no-underline"
-            >Create one</a
-          >
+          <a href="/signup" class="underline hover:no-underline">Create one</a>
         </p>
         <p>
-          <a href="./forgot-password.html" class="underline hover:no-underline"
+          <a href="/forgot-password" class="underline hover:no-underline"
             >Forgot password?</a
           >
         </p>
@@ -50,6 +53,44 @@
         </button>
       </form>
     </main>
-    <script src="script.js"></script>
   </body>
+  <script>
+    async function login(e) {
+      e.preventDefault()
+      const username = document.getElementById("username").value
+      const password = document.getElementById("password").value
+      const errorMessageEl = document.querySelector(".error-message")
+
+      if (!username || !password) {
+        displayErrorMessage("Please enter both username and password.")
+        return
+      }
+
+      try {
+        const response = await fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        })
+
+        if (response.ok) {
+          location.href = response.url
+        } else {
+          const data = await response.json()
+          displayErrorMessage(data.message)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    function displayErrorMessage(msg) {
+      const errorMessageEl = document.querySelector(".error-message")
+      errorMessageEl.classList.remove("opacity-0")
+      errorMessageEl.style.color = "red"
+      errorMessageEl.textContent = msg
+    }
+  </script>
 </html>

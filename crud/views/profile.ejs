@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 pt-12">
+    <form
+      onsubmit="updateProfile(event)"
+      class="w-full max-w-md mx-auto py-4 px-8 rounded shadow-md bg-white"
+    >
+      <h2 class="text-2xl font-bold text-center mb-4">Edit Profile</h2>
+
+      <div class="mb-4">
+        <label for="username" class="block text-sm font-medium text-gray-700"
+          >Username</label
+        >
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value="<%= user.username %>"
+          class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700"
+          >Email</label
+        >
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="<%= user.email %>"
+          class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="mob" class="block text-sm font-medium text-gray-700"
+          >Phone Number</label
+        >
+        <input
+          type="number"
+          id="mob"
+          name="mob"
+          value="<%= user.phone %>"
+          class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button
+          type="submit"
+          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          onclick="deleteUser()"
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Delete
+        </button>
+      </div>
+    </form>
+    <script>
+      const updateProfile = async (event) => {
+        event.preventDefault()
+
+        const username = document.querySelector("input[name=username]").value
+
+        const email = document.querySelector("input[name=email]").value
+
+        const phone = document.querySelector("input[name=mob]").value
+
+        const res = await fetch("/users/<%= user.id %>", {
+          method: "PATCH",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({ username, email, phone }),
+        })
+
+        // redirecting because server redirect is not working
+        if (res.redirected) {
+          location.href = res.url
+        }
+      }
+
+      const deleteUser = async () => {
+        if (confirm("Are you sure?")) {
+          const res = await fetch("/users/<%= user.id %>", {
+            method: "DELETE",
+          })
+
+          if (res.redirected) {
+            location.href = res.url
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

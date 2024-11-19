@@ -1,14 +1,15 @@
 import express from "express"
 import usersRouter from "./web/users.js"
-import router from "../routes/api/users.js"
+import apiRouter from "../routes/api/users.js"
+import webRouter from "../routes/web/users.js"
 
 const app = express()
 app.set("view engine", "ejs")
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.use("/users", usersRouter)
-app.use("/api", router)
+app.use("/", webRouter)
+app.use("/api", apiRouter)
 
 app.get("/", (req, res) => {
   res.render("index")

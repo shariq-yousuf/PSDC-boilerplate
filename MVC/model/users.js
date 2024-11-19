@@ -30,8 +30,8 @@ const getUserFromDB = async (userId) => {
   try {
     const data = await readFileAsync(dir + "/data.json", "utf-8")
     const users = JSON.parse(data)
-    const user = users.find(({ user }) => user.id === Number(userId))
-    return user.user
+    const user = users.find((user) => user.id === Number(userId))
+    return user
   } catch (err) {
     console.error("get user", err)
     return null
@@ -43,7 +43,7 @@ const addUserToDB = async (user) => {
     const data = await readFileAsync(dir + "/data.json", "utf-8")
     const users = JSON.parse(data)
 
-    users.push({ user })
+    users.push(user)
 
     await writeFileAsync(dir + "/data.json", JSON.stringify(users))
 
@@ -59,7 +59,7 @@ const deleteUserFromDB = async (userId) => {
     const data = await readFileAsync(dir + "/data.json", "utf-8")
     const users = JSON.parse(data)
 
-    const updatedUsers = users.filter(({ user }) => user.id !== Number(userId))
+    const updatedUsers = users.filter((user) => user.id !== Number(userId))
 
     await writeFileAsync(dir + "/data.json", JSON.stringify(updatedUsers))
 
@@ -77,12 +77,12 @@ const updateUserInDB = async (userId, reqBody) => {
     const data = await readFileAsync(dir + "/data.json", "utf-8")
     const users = JSON.parse(data)
 
-    const updatedUsers = users.map(({ user }) => {
+    const updatedUsers = users.map((user) => {
       if (user.id === Number(userId)) {
-        return { username, email, phoneNumber }
+        return { ...user, username, email, phoneNumber }
       }
 
-      return { user }
+      return user
     })
 
     await writeFileAsync(dir + "/data.json", JSON.stringify(updatedUsers))

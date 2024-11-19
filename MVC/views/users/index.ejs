@@ -11,14 +11,14 @@
       <h1 class="text-3xl font-bold mb-6">Users</h1>
       <div class="text-center my-6">
         <a
-          href="/users/register"
+          href="/register"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >Register New User</a
         >
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <% for (const { user } of users) { %>
+        <% for (const user of users) { %>
         <div class="bg-white rounded shadow-md p-4">
           <p class="text-lg font-medium mb-2">Name: <%= user.username %></p>
           <p class="text-gray-600">Email: <%= user.email %></p>
@@ -30,7 +30,7 @@
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Edit
-          </a>
+            </a>
             <button
               data-user-id="<%= user.id %>"
               class="delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"

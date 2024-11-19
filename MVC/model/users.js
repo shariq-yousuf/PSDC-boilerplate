@@ -8,7 +8,6 @@ const dir = import.meta.dirname
 
 class User {
   constructor(username, email, phoneNumber) {
-    this.id = Date.now()
     this.username = username
     this.email = email
     this.phoneNumber = phoneNumber
@@ -43,7 +42,7 @@ const addUserToDB = async (user) => {
     const data = await readFileAsync(dir + "/data.json", "utf-8")
     const users = JSON.parse(data)
 
-    users.push(user)
+    users.push({ id: users.length + 1, ...user })
 
     await writeFileAsync(dir + "/data.json", JSON.stringify(users))
 
